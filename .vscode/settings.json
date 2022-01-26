@@ -1,0 +1,16 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "ros.distro": "galactic",
+    "files.associations": {
+        "user.h": "c",
+        "stat.h": "c",
+        "types.h": "c"
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/ad56583964/cs828/xv6-labs-2021/kernel",
+            "binaryPath": "/home/ad56583964/cs828/xv6-labs-2021/kernel/kernel",
+            "binaryArgs": []
+        }
+    ]
+}

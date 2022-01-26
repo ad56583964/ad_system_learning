@@ -32,7 +32,7 @@ main(int argc, char *argv[])
   }
 
   for(i = 1; i < argc; i++){
-    if((fd = open(argv[i], 0)) < 0){
+    if((fd = open(argv[i], 0)) < 0){  //fd是? open是? 读取,返回一个文件描述符 fd
       fprintf(2, "cat: cannot open %s\n", argv[i]);
       exit(1);
     }

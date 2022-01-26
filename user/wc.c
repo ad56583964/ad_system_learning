@@ -12,15 +12,15 @@ wc(int fd, char *name)
 
   l = w = c = 0;
   inword = 0;
-  while((n = read(fd, buf, sizeof(buf))) > 0){
+  while((n = read(fd, buf, sizeof(buf))) > 0){ //等待 fd 0
     for(i=0; i<n; i++){
       c++;
       if(buf[i] == '\n')
-        l++;
-      if(strchr(" \r\t\n\v", buf[i]))
+        l++; //多少个newline
+      if(strchr(" \r\t\n\v", buf[i]))//不是可见字符
         inword = 0;
-      else if(!inword){
-        w++;
+      else if(!inword){ //inword 为 0 //一个跳变
+        w++; //
         inword = 1;
       }
     }
