@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jan 25 23:18:10 2022
+# Make data base, printed on Wed Jan 26 00:19:51 2022
 
 # Variables
 
@@ -57,7 +57,7 @@ UPSTREAM := origin
 # makefile (from 'Makefile', line 281)
 GDBPORT = $(shell expr `id -u` % 5000 + 25000)
 # makefile (from 'user/ln.d', line 1)
-MAKEFILE_LIST :=  Makefile conf/lab.mk kernel/proc.d kernel/fs.d kernel/string.d kernel/exec.d kernel/syscall.d kernel/log.d kernel/printf.d kernel/trap.d kernel/uart.d kernel/vm.d kernel/sysfile.d kernel/pipe.d kernel/bio.d kernel/sleeplock.d kernel/console.d kernel/spinlock.d kernel/virtio_disk.d kernel/file.d kernel/main.d kernel/sysproc.d kernel/kalloc.d kernel/plic.d kernel/start.d user/wc.d user/sh.d user/primes.d user/usertests.d user/ulib.d user/sleep.d user/init.d user/grind.d user/usys.d user/kill.d user/pingpong.d user/initcode.d user/ls.d user/mkdir.d user/umalloc.d user/echo.d user/forktest.d user/grep.d user/printf.d user/rm.d user/cat.d user/stressfs.d user/test.d user/zombie.d user/ln.d
+MAKEFILE_LIST :=  Makefile conf/lab.mk kernel/proc.d kernel/fs.d kernel/string.d kernel/exec.d kernel/syscall.d kernel/log.d kernel/printf.d kernel/trap.d kernel/uart.d kernel/vm.d kernel/sysfile.d kernel/pipe.d kernel/bio.d kernel/sleeplock.d kernel/console.d kernel/spinlock.d kernel/virtio_disk.d kernel/file.d kernel/main.d kernel/sysproc.d kernel/kalloc.d kernel/plic.d kernel/start.d user/wc.d user/sh.d user/primes.d user/ulib.d user/sleep.d user/init.d user/grind.d user/usys.d user/kill.d user/pingpong.d user/initcode.d user/ls.d user/mkdir.d user/umalloc.d user/echo.d user/forktest.d user/grep.d user/printf.d user/usertests.d user/rm.d user/cat.d user/stressfs.d user/test.d user/zombie.d user/ln.d
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -89,7 +89,7 @@ CPUS := 3
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-3aaa9bb9-a7d4-4666-824f-6d833de1eb18.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-b79fad25-d9b7-4ef0-bd11-d8031fcf4f57.sock
 # makefile (from 'Makefile', line 125)
 LDFLAGS = -z max-page-size=4096
 # makefile (from 'Makefile', line 147)
@@ -217,11 +217,11 @@ MOTD_SHOWN = pam
 
 # Directories
 
-# user (device 2053, inode 1925204): 143 files, no impossibilities.
+# user (device 2053, inode 1925204): 142 files, no impossibilities.
 # kernel (device 2053, inode 1925202): 101 files, no impossibilities.
 # . (device 2053, inode 1925190): 25 files, no impossibilities.
 
-# 269 files, no impossibilities in 3 directories.
+# 268 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -327,7 +327,6 @@ kernel/kalloc.d:
 #  File has been updated.
 #  Successfully updated.
 
- 
 # makefile (from 'Makefile', line 132)
 kernel/exec.o: EXTRAFLAG := 
 kernel/exec.o: kernel/exec.c kernel/types.h kernel/param.h kernel/memlayout.h kernel/riscv.h kernel/spinlock.h kernel/proc.h kernel/defs.h kernel/elf.h
@@ -572,6 +571,7 @@ print-gdbport:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 334):
 	@echo $(GDBPORT)
+ 
 
 # Not a target:
 user/stressfs.c:
@@ -618,7 +618,6 @@ kernel/trampoline.o: EXTRAFLAG :=
 # Not a target:
 kernel/trampoline.o:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 # variable set hash-table stats:
@@ -850,6 +849,7 @@ user/primes.d:
 mkfs/mkfs.c:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+ 
 #  File has not been updated.
 
 # Not a target:
@@ -895,7 +895,6 @@ user/printf.o: user/printf.c kernel/types.h kernel/stat.h user/user.h /usr/local
 # Not a target:
 user/_cat:
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -1127,6 +1126,7 @@ user/umalloc.c:
 #  Modification time never checked.
 #  File has not been updated.
 
+ 
 # Not a target:
 user/forktest.c:
 #  Implicit rule search has not been done.
@@ -1173,7 +1173,6 @@ kernel/sleeplock.h:
 #  Modification time never checked.
 #  File has not been updated.
 
- 
 # Not a target:
 kernel/param.h:
 #  Implicit rule search has not been done.
@@ -1426,6 +1425,7 @@ myapi.key:
 		false; \
 	fi;
 
+ 
 # Not a target:
 user/cat.d:
 #  Implicit rule search has been done.
@@ -1472,7 +1472,6 @@ user/wc.o: user/wc.c kernel/types.h kernel/stat.h user/user.h
 
 kernel/start.o: kernel/start.c kernel/types.h kernel/param.h kernel/memlayout.h kernel/riscv.h kernel/defs.h
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 
@@ -1704,6 +1703,7 @@ user/echo.d:
 #  Last modified 2022-01-25 21:52:49.630392886
 #  File has been updated.
 #  Successfully updated.
+ 
 
 # Not a target:
 user/usertests.d:
@@ -1741,12 +1741,12 @@ kernel/string.c:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 480 / storage = 5216 B / avg = 10 B
-# current buf: size = 8162 B / used = 5216 B / count = 480 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 479 / storage = 5206 B / avg = 10 B
+# current buf: size = 8162 B / used = 5206 B / count = 479 / avg = 10 B
 
-# strcache performance: lookups = 970 / hit rate = 50%
+# strcache performance: lookups = 969 / hit rate = 50%
 # hash-table stats:
-# Load=480/8192=6%, Rehash=0, Collisions=50/970=5%
-# Finished Make data base on Tue Jan 25 23:18:10 2022
+# Load=479/8192=6%, Rehash=0, Collisions=49/969=5%
+# Finished Make data base on Wed Jan 26 00:19:51 2022
 
  
