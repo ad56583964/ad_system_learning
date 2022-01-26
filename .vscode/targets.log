@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jan 26 01:32:57 2022
+# Make data base, printed on Wed Jan 26 01:46:45 2022
 
 # Variables
 
@@ -193,7 +193,7 @@ OBJCOPY = $(TOOLPREFIX)objcopy
 # default
 SUFFIXES := 
 # makefile (from 'Makefile', line 179)
-UPROGS = $U/_cat $U/_echo $U/_forktest $U/_grep $U/_init $U/_kill $U/_ln $U/_ls $U/_mkdir $U/_rm $U/_sh $U/_stressfs $U/_usertests $U/_grind $U/_wc $U/_zombie $U/_sleep $U/_pingpong $U/_test $U/_primes 
+UPROGS = $U/_cat $U/_echo $U/_forktest $U/_grep $U/_init $U/_kill $U/_ln $U/_ls $U/_mkdir $U/_rm $U/_sh $U/_stressfs $U/_usertests $U/_grind $U/_wc $U/_zombie $U/_sleep $U/_pingpong $U/_test $U/_primes $U/_pipe 
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
@@ -209,7 +209,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 MOTD_SHOWN = pam
 # variable set hash-table stats:
-# Load=98/1024=10%, Rehash=0, Collisions=46/456=10%
+# Load=98/1024=10%, Rehash=0, Collisions=46/457=10%
 
 # Pattern-specific Variable Values
 
@@ -217,11 +217,11 @@ MOTD_SHOWN = pam
 
 # Directories
 
-# user (device 2053, inode 1925204): 142 files, no impossibilities.
+# user (device 2053, inode 1925204): 143 files, no impossibilities.
 # kernel (device 2053, inode 1925202): 101 files, no impossibilities.
 # . (device 2053, inode 1925190): 25 files, no impossibilities.
 
-# 268 files, no impossibilities in 3 directories.
+# 269 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -687,7 +687,7 @@ kernel/plic.d:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-20 00:39:07.723180248
+#  Last modified 2022-01-26 01:46:43.645299347
 #  File has been updated.
 #  Successfully updated.
 
@@ -1002,7 +1002,7 @@ user/_echo:
 #  Modification time never checked.
 #  File has not been updated.
 
-fs.img: mkfs/mkfs README user/xargstest.sh user/_cat user/_echo user/_forktest user/_grep user/_init user/_kill user/_ln user/_ls user/_mkdir user/_rm user/_sh user/_stressfs user/_usertests user/_grind user/_wc user/_zombie user/_sleep user/_pingpong user/_test user/_primes
+fs.img: mkfs/mkfs README user/xargstest.sh user/_cat user/_echo user/_forktest user/_grep user/_init user/_kill user/_ln user/_ls user/_mkdir user/_rm user/_sh user/_stressfs user/_usertests user/_grind user/_wc user/_zombie user/_sleep user/_pingpong user/_test user/_primes user/_pipe
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -1377,6 +1377,12 @@ user/printf.d:
 #  Successfully updated.
 
 # Not a target:
+user/_pipe:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 user/_usertests:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -1419,13 +1425,13 @@ myapi.key:
 		false; \
 	fi;
 
+ 
 # Not a target:
 user/cat.d:
 #  Implicit rule search has been done.
 #  Last modified 2022-01-26 00:28:42.084211722
 #  File has been updated.
 #  Successfully updated.
- 
 
 # Not a target:
 user/mkdir.d:
@@ -1697,13 +1703,13 @@ user/echo.d:
 #  Last modified 2022-01-26 00:28:42.124211094
 #  File has been updated.
 #  Successfully updated.
+ 
 
 # Not a target:
 user/usertests.d:
 #  Implicit rule search has been done.
 #  Last modified 2022-01-26 00:28:42.988197544
 #  File has been updated.
- 
 #  Successfully updated.
 
 # Not a target:
@@ -1728,19 +1734,19 @@ kernel/string.c:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=218/1024=21%, Rehash=0, Collisions=58/753=8%
+# Load=219/1024=21%, Rehash=0, Collisions=62/755=8%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 478 / storage = 5191 B / avg = 10 B
-# current buf: size = 8162 B / used = 5191 B / count = 478 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 479 / storage = 5202 B / avg = 10 B
+# current buf: size = 8162 B / used = 5202 B / count = 479 / avg = 10 B
 
-# strcache performance: lookups = 968 / hit rate = 50%
+# strcache performance: lookups = 970 / hit rate = 50%
 # hash-table stats:
-# Load=478/8192=6%, Rehash=0, Collisions=49/968=5%
-# Finished Make data base on Wed Jan 26 01:32:57 2022
+# Load=479/8192=6%, Rehash=0, Collisions=51/970=5%
+# Finished Make data base on Wed Jan 26 01:46:45 2022
 
  
