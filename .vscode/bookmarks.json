@@ -9,6 +9,26 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "user/sh.c",
+			"bookmarks": [
+				{
+					"line": 144,
+					"column": 10,
+					"label": ""
+				},
+				{
+					"line": 344,
+					"column": 39,
+					"label": ""
+				},
+				{
+					"line": 368,
+					"column": 42,
+					"label": ""
+				}
+			]
 		}
 	]
 }

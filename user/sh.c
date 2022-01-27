@@ -342,7 +342,7 @@ parsecmd(char *s)
 }
 
 struct cmd*
-parseline(char **ps, char *es)
+parseline(char **ps, char *es) //line??
 {
   struct cmd *cmd;
 
