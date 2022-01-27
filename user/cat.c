@@ -10,8 +10,8 @@ cat(int fd)
   int n;
 
   while((n = read(fd, buf, sizeof(buf))) > 0) {
-    if (write(1, buf, n) != n) {
-      fprintf(2, "cat: write error\n");
+    if (write(1, buf, n) != n) { //write to the stand output
+      fprintf(2, "cat: write error\n");  // maybe lost something??
       exit(1);
     }
   }
