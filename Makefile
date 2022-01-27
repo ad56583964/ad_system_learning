@@ -198,6 +198,7 @@ UPROGS=\
 	$U/_test\
 	$U/_primes\
 	$U/_pipe\
+	$U/_xargs\
 
 
 ifeq ($(LAB),$(filter $(LAB), pgtbl lock))

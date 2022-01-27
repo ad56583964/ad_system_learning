@@ -3,15 +3,16 @@
 #include "user/user.h"
 
 enum{
-    PIPE_READ,
-    PIPE_WRITE
+    PIPE_READ_Id,
+    PIPE_WRITE_Id
 };
 
-void readOut(int read_pipe)
+void childReadOut(int p[])
 {
     int read_buf;
-
     int check_read = 1;
+
+    close(p[PIPE_WRITE_Id]);
     while(1)
     {
         if(check_read == 0)
@@ -19,19 +20,20 @@ void readOut(int read_pipe)
             printf("Finished\n");
             break;
         }
-        check_read = read(read_pipe,&read_buf,sizeof(int));
+        check_read = read(p[PIPE_READ_Id],&read_buf,sizeof(int));
         printf("Read: %d, Check: %d\n",read_buf,check_read);
     }
 }
 
-void pushInNum(int write_pipe)
+void parentPushInNum(int p[])
 {
+    close(p[PIPE_READ_Id]); //child no use
     for(int i = 0; i <= 5; i++)
     {
-        write(write_pipe,&i,sizeof(int));
+        write(p[PIPE_WRITE_Id],&i,sizeof(int));
     }
     // sleep(10);
-    close(write_pipe);
+    close(p[PIPE_WRITE_Id]); //release PIPE
 }
 
 
@@ -53,10 +55,10 @@ main(int argc, char *argv[])
     int pid = fork();
 
     if(pid == 0){
-        pushInNum(p[PIPE_WRITE]);
+        parentPushInNum(p);
     }
     else{
-        readOut(p[PIPE_READ]);
+        childReadOut(p);
     }
     exit(0);
 }
