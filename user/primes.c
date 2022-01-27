@@ -61,7 +61,6 @@ void pipeline(int frompipe[])
             // printf("LastPipeLine\n");
             return;
         }
-
         // sleep(2);
         // printf("N: %d Pipe: %d\n",cn, p[0]);
         printf("prime %d\n",cn, p[0]);
