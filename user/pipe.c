@@ -52,10 +52,10 @@ main(int argc, char *argv[])
     int pid = fork();
     if(pid == 0)
     {
-        child();
+        child(p[PIPE_READ]);
     }
     else{
-        parent();
+        parent(p[PIPE_WRITE]);
     }
 
     exit(0);

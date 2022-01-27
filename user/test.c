@@ -30,6 +30,7 @@ void pushInNum(int write_pipe)
     {
         write(write_pipe,&i,sizeof(int));
     }
+    // sleep(10);
     close(write_pipe);
 }
 
@@ -48,11 +49,15 @@ main(int argc, char *argv[])
     int p[2];
 
     pipe(p);
-    
-    pushInNum(p[PIPE_WRITE]);
 
-    readOut(p[PIPE_READ]);
+    int pid = fork();
 
+    if(pid == 0){
+        pushInNum(p[PIPE_WRITE]);
+    }
+    else{
+        readOut(p[PIPE_READ]);
+    }
     exit(0);
 }
 

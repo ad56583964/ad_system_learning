@@ -2,6 +2,32 @@
 #include "kernel/stat.h"
 #include "user/user.h"
 
+enum{
+    PIPE_READ_Id,
+    PIPE_WRITE_Id
+};
+
+void endTransport(int write_port)
+{
+    int ch = -1;
+    write(write_port,&ch,sizeof(int));
+}
+
+// void createpipe(int p[])
+// {
+//     while(1){
+//         int check_pipe = pipe(p);//开启第一个管道
+//         if(check_pipe == 0){
+//             // close(0);
+//             break;
+//         }
+//         else{
+//             printf("WaitRelease\n");
+//             sleep(4);
+//             // while(1);
+//         }
+//     }
+// }
 
 void pipeline(int frompipe[])
 {
@@ -9,44 +35,67 @@ void pipeline(int frompipe[])
     p[0] = frompipe[0];
 
     int cache_read;
-    int check_read = 1;
+    int cache_write;
 
-    while(check_read == 1)
-    {
+    __JUMP:
         int cn;//除数
-        check_read = read(p[0],&cn,sizeof(int));//get the first num from the pipe and store it as the divisor
+        read(p[0],&cn,sizeof(int));//get the first num from the pipe and store it as the divisor
 
-        printf("N: %d\n",cn);
-
-        if(check_read == 0){ //read nothing 
+        if(cn == -1){ //end of pipe
             printf("LastPipeLine\n");
-            break; //stop and exit[this is the finial process]
+            return;
         }
 
-        cache_read = p[0];
-        pipe(p); //创建新管道 /这个时候p的值就变了
+        sleep(2);
+        printf("N: %d Pipe: %d\n",cn, p[0]);
 
+        cache_read = p[0];//last read pipe
+        cache_write = p[1];
 
-        while(check_read != 0)//处理管道来的东西
+        while(1){
+            int check_pipe = pipe(p);//开启第一个管道
+            if(check_pipe == 0){
+                // close(0);
+                break;
+            }
+            else{
+                printf("WaitRelease\n");
+                sleep(4);
+                // while(1);
+            }
+        }
+
+        int inpid = fork();
+        if(inpid == 0){     
+            close(cache_read);
+            close(cache_read);
+            close(p[1]);
+            goto __JUMP;
+        }
+        while(1)//处理管道来的东西
         {
             int dividend;
-            check_read = read(cache_read,&dividend,sizeof(int));//获取被除数
-            if(check_read == 0)//没有读到东西
+            read(cache_read,&dividend,sizeof(int));//获取被除数
+
+            if(dividend == -1)// end if pipe
             {
-                printf("Finish\n");
+                endTransport(p[PIPE_WRITE_Id]);
+                // printf("Finish\n");
                 break;
             }
 
-            if(dividend % cn != 0)//无法被除尽
+            if(dividend % cn != 0)//find a prime
             {
-                write(p[1],&dividend,sizeof(int)); //发到新的管道里
+                write(p[PIPE_WRITE_Id],&dividend,sizeof(int)); //发到新的管道里
             }
         }
-        close(p[0]);
-        close(p[1]);
-    }
-}
+        close(cache_read);
+        close(cache_write);
+        close(p[PIPE_WRITE_Id]);
+        close(p[PIPE_READ_Id]);
 
+    printf("Closed: %d\n",cache_read);
+}
 
 int main(void)
 {
@@ -56,30 +105,32 @@ int main(void)
 
     // int cache_read = 0;
     // int cache_write = 0;
-    pipe(p);//开启第一个管道
+    pipe(p);
 
     int pid = fork();
 
     if(pid > 0)//父进程
     {
+        close(p[PIPE_READ_Id]);
         // fprintf(2,"%d: isParent\n",pid);
-        
         //推送数字
-        for(int n=2;n<=5;n++)
+        for(int n=2;n<=40;n++)
         {
-            write(p[1],&n,sizeof(int));
+            write(p[PIPE_WRITE_Id],&n,sizeof(int));
         }
-        close(p[0]);
-        close(p[1]);//关闭管道
+        endTransport(p[PIPE_WRITE_Id]);
         // break;
         printf("Closed\n");
+        close(p[PIPE_WRITE_Id]);
+        close(p[PIPE_READ_Id]);
+
     }
 
     if(pid == 0)//子进程
     {
-        
+        pipeline(p);
     }
-
+    close(0);
     wait(0);
     exit(0);
 }
