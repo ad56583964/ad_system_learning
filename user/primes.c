@@ -13,21 +13,37 @@ void endTransport(int write_port)
     write(write_port,&ch,sizeof(int));
 }
 
-// void createpipe(int p[])
-// {
-//     while(1){
-//         int check_pipe = pipe(p);//开启第一个管道
-//         if(check_pipe == 0){
-//             // close(0);
-//             break;
-//         }
-//         else{
-//             printf("WaitRelease\n");
-//             sleep(4);
-//             // while(1);
-//         }
-//     }
-// }
+void createPipe(int p[])
+{
+    while(1){
+        int check_pipe = pipe(p);//开启第一个管道
+        if(check_pipe == 0){
+            // close(0);
+            break;
+        }
+        else{
+            printf("WaitRelease\n");
+            sleep(4);
+            // while(1);
+        }
+    }
+}
+
+void pushInNums(int nums,int p[])
+{
+    // close(p[PIPE_READ_Id]);
+    // fprintf(2,"%d: isParent\n",pid);
+    //推送数字
+    for(int n=2;n<=nums;n++)
+    {
+        write(p[PIPE_WRITE_Id],&n,sizeof(int));
+    }
+    endTransport(p[PIPE_WRITE_Id]);
+    // break;
+    // printf("Closed\n");
+    close(p[PIPE_WRITE_Id]);
+    close(p[PIPE_READ_Id]);
+}
 
 void pipeline(int frompipe[])
 {
@@ -42,28 +58,17 @@ void pipeline(int frompipe[])
         read(p[0],&cn,sizeof(int));//get the first num from the pipe and store it as the divisor
 
         if(cn == -1){ //end of pipe
-            printf("LastPipeLine\n");
+            // printf("LastPipeLine\n");
             return;
         }
 
-        sleep(2);
-        printf("N: %d Pipe: %d\n",cn, p[0]);
-
+        // sleep(2);
+        // printf("N: %d Pipe: %d\n",cn, p[0]);
+        printf("prime %d\n",cn, p[0]);
         cache_read = p[0];//last read pipe
         cache_write = p[1];
 
-        while(1){
-            int check_pipe = pipe(p);//开启第一个管道
-            if(check_pipe == 0){
-                // close(0);
-                break;
-            }
-            else{
-                printf("WaitRelease\n");
-                sleep(4);
-                // while(1);
-            }
-        }
+        createPipe(p);
 
         int inpid = fork();
         if(inpid == 0){     
@@ -94,7 +99,7 @@ void pipeline(int frompipe[])
         close(p[PIPE_WRITE_Id]);
         close(p[PIPE_READ_Id]);
 
-    printf("Closed: %d\n",cache_read);
+    // printf("Closed: %d\n",cache_read);
 }
 
 int main(void)
@@ -111,18 +116,7 @@ int main(void)
 
     if(pid > 0)//父进程
     {
-        close(p[PIPE_READ_Id]);
-        // fprintf(2,"%d: isParent\n",pid);
-        //推送数字
-        for(int n=2;n<=40;n++)
-        {
-            write(p[PIPE_WRITE_Id],&n,sizeof(int));
-        }
-        endTransport(p[PIPE_WRITE_Id]);
-        // break;
-        printf("Closed\n");
-        close(p[PIPE_WRITE_Id]);
-        close(p[PIPE_READ_Id]);
+        pushInNums(35,p);
 
     }
 
