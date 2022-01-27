@@ -7,11 +7,16 @@ int
 main(int argc, char *argv[])
 {
     // close(0);
-    int fd;
-    fd = open("console",O_RDWR);
-    close(1);
-    printf("fd: %d",fd);
-    fprintf(fd,"test output\n");
-    fprintf(fd,"fffd: %d\n",fd);
+    char* s = argv[1];
+
+    printf("argv[1] %s\n",s);
+
+    char *es;
+
+    es = s + strlen(s);
+
+    //1*s + 4*1
+    printf("es:%d",es);
+    // printf("")
     exit(0);
 }
