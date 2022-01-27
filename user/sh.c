@@ -58,13 +58,13 @@ void
 runcmd(struct cmd *cmd)
 {
   int p[2];
-  struct backcmd *bcmd;
-  struct execcmd *ecmd;
+  struct backcmd *bcmd; // now they just have different names
+  struct execcmd *ecmd; // how tu form in thry type
   struct listcmd *lcmd;
   struct pipecmd *pcmd;
   struct redircmd *rcmd;
 
-  if(cmd == 0)
+  if(cmd == 0) 
     exit(1);
 
   switch(cmd->type){
@@ -80,7 +80,7 @@ runcmd(struct cmd *cmd)
     break;
 
   case REDIR:
-    rcmd = (struct redircmd*)cmd;
+    rcmd = (struct redircmd*)cmd; 
     close(rcmd->fd);
     if(open(rcmd->file, rcmd->mode) < 0){
       fprintf(2, "open %s failed\n", rcmd->file);
@@ -94,7 +94,7 @@ runcmd(struct cmd *cmd)
     if(fork1() == 0)
       runcmd(lcmd->left);
     wait(0);
-    runcmd(lcmd->right);
+    runcmd(lcmd->right);//recur no no no! it tries to exec
     break;
 
   case PIPE:
@@ -102,11 +102,11 @@ runcmd(struct cmd *cmd)
     if(pipe(p) < 0)
       panic("pipe");
     if(fork1() == 0){
-      close(1);
-      dup(p[1]);
-      close(p[0]);
-      close(p[1]);
-      runcmd(pcmd->left);
+      close(1);//woc redirect the stand ouput! 
+      dup(p[1]);// 1 <==> p[1] ??
+      close(p[0]);// woc??
+      close(p[1]);//
+      runcmd(pcmd->left);//?? run the left exec
     }
     if(fork1() == 0){
       close(0);
@@ -174,7 +174,7 @@ main(void)
 void
 panic(char *s)
 {
-  fprintf(2, "%s\n", s);
+  fprintf(2, "%s\n", s); // ouput to the error
   exit(1);
 }
 
@@ -341,6 +341,10 @@ parsecmd(char *s)
   return cmd;
 }
 
+
+// $ echo haha; echo haha
+// haha
+// haha
 struct cmd*
 parseline(char **ps, char *es) //line??
 {
@@ -385,10 +389,10 @@ parseredirs(struct cmd *cmd, char **ps, char *es)
     case '<':
       cmd = redircmd(cmd, q, eq, O_RDONLY, 0);
       break;
-    case '>':
+    case '>': //it will delete all the thing in the right file
       cmd = redircmd(cmd, q, eq, O_WRONLY|O_CREATE|O_TRUNC, 1);
       break;
-    case '+':  // >>
+    case '+':  // ??
       cmd = redircmd(cmd, q, eq, O_WRONLY|O_CREATE, 1);
       break;
     }
