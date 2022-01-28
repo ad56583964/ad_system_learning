@@ -131,11 +131,11 @@ runcmd(struct cmd *cmd)
 }
 
 int
-getcmd(char *buf, int nbuf)
+getcmd(char *buf, int nbuf) //sizeof buf
 {
-  fprintf(2, "$ ");
-  memset(buf, 0, nbuf);
-  gets(buf, nbuf);
+  fprintf(2, "$ "); // output to error?? 
+  memset(buf, 0, nbuf); //set?? full 0??
+  gets(buf, nbuf);  // gets??
   if(buf[0] == 0) // EOF
     return -1;
   return 0;

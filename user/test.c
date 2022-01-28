@@ -19,7 +19,6 @@ main(int argc, char *argv[])
         printf("ID:%d C:%c D:%d CHECK:%d\n",string_cnt,cache,check_read);
         //ASCALL 0:
 
-
         if (check_read == 0)
         {
             break;
