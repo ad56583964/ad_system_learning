@@ -1,7 +1,0 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/home/ad56583964/cs828/xv6-labs-2021'
- 
-make: 'kernel/kernel' is up to date.
- 
-make: Leaving directory '/home/ad56583964/cs828/xv6-labs-2021'
- 
