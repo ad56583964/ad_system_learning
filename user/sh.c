@@ -156,14 +156,14 @@ main(void)
   }
 
   // Read and run input commands.
-  while(getcmd(buf, sizeof(buf)) >= 0){
+  while(getcmd(buf, sizeof(buf)) >= 0){//
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
       // Chdir must be called by the parent, not the child.
-      buf[strlen(buf)-1] = 0;  // chop \n
-      if(chdir(buf+3) < 0)
+      buf[strlen(buf)-1] = 0;  // chop \n //chop 砍 throw the end \n
+      if(chdir(buf+3) < 0) //
         fprintf(2, "cannot cd %s\n", buf+3);
       continue;
-    }
+    } //cd function
     if(fork1() == 0)
       runcmd(parsecmd(buf));
     wait(0);
@@ -259,8 +259,8 @@ backcmd(struct cmd *subcmd)
 //PAGEBREAK!
 // Parsing
 
-char whitespace[] = " \t\r\n\v";
-char symbols[] = "<|>&;()";
+char whitespace[] = " \t\r\n\v";//??
+char symbols[] = "<|>&;()";//??
 
 int
 gettoken(char **ps, char *es, char **q, char **eq)
@@ -325,7 +325,7 @@ struct cmd *parseexec(char**, char*);
 struct cmd *nulterminate(struct cmd*);
 
 struct cmd*
-parsecmd(char *s)
+parsecmd(char *s)//??
 {
   char *es;
   struct cmd *cmd;
@@ -337,7 +337,7 @@ parsecmd(char *s)
     fprintf(2, "leftovers: %s\n", s);
     panic("syntax");
   }
-  nulterminate(cmd);
+  nulterminate(cmd); //??
   return cmd;
 }
 
@@ -451,10 +451,10 @@ parseexec(char **ps, char *es)
 
 // NUL-terminate all the counted strings.
 struct cmd*
-nulterminate(struct cmd *cmd)
+nulterminate(struct cmd *cmd)//cmd??
 {
   int i;
-  struct backcmd *bcmd;
+  struct backcmd *bcmd;// what's the function of
   struct execcmd *ecmd;
   struct listcmd *lcmd;
   struct pipecmd *pcmd;

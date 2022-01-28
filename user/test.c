@@ -6,17 +6,26 @@
 int
 main(int argc, char *argv[])
 {
-    // close(0);
-    char* s = argv[1];
+    char cache;
+    
+    while(1)
+    {
+        static int string_cnt = 1;
+        static int check_read = 1;
 
-    printf("argv[1] %s\n",s);
+        check_read = read(0,&cache,1);
+        string_cnt++;
 
-    char *es;
+        printf("ID:%d C:%c D:%d CHECK:%d\n",string_cnt,cache,check_read);
+        //ASCALL 0:
 
-    es = s + strlen(s);
 
-    //1*s + 4*1
-    printf("es:%d",es);
-    // printf("")
+        if (check_read == 0)
+        {
+            break;
+        }
+        
+    }
+
     exit(0);
 }
