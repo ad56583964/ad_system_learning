@@ -3,28 +3,19 @@
 #include "user/user.h"
 #include "kernel/fcntl.h"
 
+int haha()
+{
+    printf("Do\n");
+    return 0;
+}
+
 int
 main(int argc, char *argv[])
 {
-    char cache;
-    
-    while(1)
-    {
-        static int string_cnt = 1;
-        static int check_read = 1;
+    // char cache;
+    char buf[100];
 
-        check_read = read(0,&cache,1);
-        string_cnt++;
-
-        printf("ID:%d C:%c D:%d CHECK:%d\n",string_cnt,cache,check_read);
-        //ASCALL 0:
-
-        if (check_read == 0)
-        {
-            break;
-        }
-        
-    }
+    printf("The Size: %d", sizeof(buf));
 
     exit(0);
 }

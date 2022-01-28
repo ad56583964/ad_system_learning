@@ -144,7 +144,7 @@ getcmd(char *buf, int nbuf) //sizeof buf
 int
 main(void)
 {
-  static char buf[100];
+  static char buf[100]; // the size is 100
   int fd;
 
   // Ensure that three file descriptors are open.
@@ -156,7 +156,7 @@ main(void)
   }
 
   // Read and run input commands.
-  while(getcmd(buf, sizeof(buf)) >= 0){//
+  while(getcmd(buf, sizeof(buf)) >= 0){//shell always running
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
       // Chdir must be called by the parent, not the child.
       buf[strlen(buf)-1] = 0;  // chop \n //chop 砍 throw the end \n
