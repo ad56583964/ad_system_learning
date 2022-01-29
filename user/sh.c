@@ -155,11 +155,14 @@ main(void)
     }
   }
 
+  //close(0); this will break the while below
+
   // Read and run input commands.
   while(getcmd(buf, sizeof(buf)) >= 0){//shell always running
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
       // Chdir must be called by the parent, not the child.
       buf[strlen(buf)-1] = 0;  // chop \n //chop 砍 throw the end \n
+      
       if(chdir(buf+3) < 0) //
         fprintf(2, "cannot cd %s\n", buf+3);
       continue;
