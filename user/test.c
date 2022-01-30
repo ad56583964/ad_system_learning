@@ -26,6 +26,12 @@ main(int argc, char *argv[])
     printf("Str start addr: %p\n", argv[1]);
     char* fh = strchr(argv[1],'h');
     printf("First 'h' addr: %p\n", fh);
+
+    printf("peekal output:\n");
+    char* new_ps = fh;
+
+    printf("%s\n",new_ps);
+
     printf("exit test\n");
     // while(1);
     exit(0);
