@@ -168,8 +168,8 @@ main(void)
       continue;
     } //cd function
     if(fork1() == 0)
-      runcmd(parsecmd(buf));
-    wait(0);
+      runcmd(parsecmd(buf));//
+    wait(0);// it's child also waiting it
   }
   exit(0);
 }
@@ -304,18 +304,18 @@ gettoken(char **ps, char *es, char **q, char **eq)
   if(eq)
     *eq = s;
 
-  while(s < es && strchr(whitespace, *s))
+  while(s < es && strchr(whitespace, *s)) //strchr 寻找第一次出现的位置
     s++;
   *ps = s;
-  return ret;
+  return ret; //what is ret?? 
 }
 
-int
+int// what is peek??
 peek(char **ps, char *es, char *toks)
 {
   char *s;
 
-  s = *ps;
+  s = *ps; //deref once *ps is still a point
   while(s < es && strchr(whitespace, *s))
     s++;
   *ps = s;
@@ -333,7 +333,7 @@ parsecmd(char *s)//??
   char *es;
   struct cmd *cmd;
 
-  es = s + strlen(s);
+  es = s + strlen(s); //the end of the string
   cmd = parseline(&s, es);
   peek(&s, es, "");
   if(s != es){
@@ -440,7 +440,7 @@ parseexec(char **ps, char *es)
       break;
     if(tok != 'a')
       panic("syntax");
-    cmd->argv[argc] = q;
+    cmd->argv[argc] = q; // 
     cmd->eargv[argc] = eq;
     argc++;
     if(argc >= MAXARGS)
