@@ -23,6 +23,9 @@ main(int argc, char *argv[])
     
     printf("%s:\n", argv[1]);
 
+    printf("Str start addr: %p\n", argv[1]);
+    char* fh = strchr(argv[1],'h');
+    printf("First 'h' addr: %p\n", fh);
     printf("exit test\n");
     // while(1);
     exit(0);
