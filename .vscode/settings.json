@@ -4,7 +4,8 @@
     "files.associations": {
         "user.h": "c",
         "stat.h": "c",
-        "types.h": "c"
+        "types.h": "c",
+        "fcntl.h": "c"
     },
     "makefile.launchConfigurations": [
         {

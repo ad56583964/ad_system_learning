@@ -4,7 +4,7 @@
 #include "kernel/fs.h"
 
 char*
-fmtname(char *path)
+fmtname(char *path)// how to parse the path files??
 {
   static char buf[DIRSIZ+1];
   char *p;
@@ -53,13 +53,13 @@ ls(char *path)
     }
     strcpy(buf, path);
     p = buf+strlen(buf);
-    *p++ = '/';
+    *p++ = '/'; //自加后放置"/"
     while(read(fd, &de, sizeof(de)) == sizeof(de)){
       if(de.inum == 0)
         continue;
-      memmove(p, de.name, DIRSIZ);
+      memmove(p, de.name, DIRSIZ); //??
       p[DIRSIZ] = 0;
-      if(stat(buf, &st) < 0){
+      if(stat(buf, &st) < 0){ //??
         printf("ls: cannot stat %s\n", buf);
         continue;
       }
@@ -76,7 +76,7 @@ main(int argc, char *argv[])
   int i;
 
   if(argc < 2){
-    ls(".");
+    ls("."); // ??
     exit(0);
   }
   for(i=1; i<argc; i++)

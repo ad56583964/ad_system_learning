@@ -3,36 +3,45 @@
 #include "user/user.h"
 #include "kernel/fcntl.h"
 
-int
-getcmd(char *buf, int nbuf) //sizeof buf
-{
-    // fprintf(2, "buf[0]: %d\n",buf[0]);
-    fprintf(2, "@ "); // output to error?? 
-    memset(buf, 0, nbuf); //set?? full 0??
-    gets(buf, nbuf);  // gets??
+#include "kernel/fs.h"
 
-    if(buf[0] == 0) // EOF
-        return -1;
-    return 0;
+void check_arg(char *arg[])
+{
+    printf("*arg:%p\n",arg[2]);
+
 }
 
+
 int
-main(int argc, char *argv[])
+main(int argc, char *argv[])//指针数组？？
 {
     // static char buf[100]; // the size is 100
-    
-    printf("%s:\n", argv[1]);
+    //review the is
+    // "." is the current path
+// *p++ = '/';
+    struct dirent de;
 
-    printf("Str start addr: %p\n", argv[1]);
-    char* fh = strchr(argv[1],'h');
-    printf("First 'h' addr: %p\n", fh);
-
-    printf("peekal output:\n");
-    char* new_ps = fh;
-
-    printf("%s\n",new_ps);
-
-    printf("exit test\n");
-    // while(1);
+    // char* p = "haha\n";
+    int fd = open("./",O_RDONLY);
+    while(read(fd,&de,sizeof(de)) == sizeof(de))
+    {
+        static int cnt = 0;
+        cnt++;
+        // if(de.inum == 0){
+        //     continue;
+        // }
+        printf("CNT:%d  ",cnt);
+        printf("%s    ",de.name); //??符号的优先级 
+        printf("inum:%d\n",de.inum);
+    }
+    printf("finish write\n");
+    // int fd = open("./",O_RDONLY);
+    // for(int i = 0; i < 10; i++){
+    //     char ch;
+    //     read(fd,&ch,1);
+    //     write(1,&ch,1);
+    // }
+    // fd = open(argv)
+    // check_arg(argv);
     exit(0);
 }
