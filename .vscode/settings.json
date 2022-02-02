@@ -5,7 +5,8 @@
         "user.h": "c",
         "stat.h": "c",
         "types.h": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "fs.h": "c"
     },
     "makefile.launchConfigurations": [
         {
