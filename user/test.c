@@ -33,6 +33,7 @@ main(int argc, char *argv[])//指针数组？？
         printf("CNT:%d  ",cnt);
         printf("%s    ",de.name); //??符号的优先级 
         printf("inum:%d\n",de.inum);
+        // printf("sizeof:%d",sizeof(de));
     }
     printf("finish write\n");
     // int fd = open("./",O_RDONLY);
