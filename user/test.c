@@ -11,9 +11,18 @@ void checkArg(char *arg[])
 
 }
 
-void showCurrentFiles(const int fd)
+
+
+void showCurrentFiles(const char* current_dir_name,const int fd)
 {
     struct dirent de;
+    // struct stat fdstat;
+    {
+        /* data */
+    };
+    
+    printf("CurrentFile: %s\n",current_dir_name);
+
     while(read(fd,&de,sizeof(de)) == sizeof(de))
     {
 
@@ -32,7 +41,7 @@ void showCurrentFiles(const int fd)
        
         //
         // printf("CNT:%d  ",cnt);
-        printf("stat:%d  ",fstat.type);
+        printf(" stat:%d  ",fstat.type);
         printf("%s    ",de.name); //??符号的优先级 
         printf("inum:%d\n",de.inum);
         // printf("sizeof:%d",sizeof(de));
@@ -49,10 +58,14 @@ main(int argc, char *argv[])//指针数组？？
 // *p++ = '/';
 
     // char* p = "haha\n";
-    int fd = open("./",O_RDONLY);
-    showCurrentFiles(fd);
-
+    char* filename = "./";
+    int fd = open(filename,O_RDONLY);
     
+
+    showCurrentFiles(filename,fd);
+
+    // chdir();
+
 
 
     exit(0);
