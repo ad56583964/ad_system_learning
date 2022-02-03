@@ -1,11 +1,7 @@
 #ifndef __AD_TOOLS_H__
 #define __AD_TOOLS_H__
     
-void showString(char* str);
+    // #define INUM
+#define INUM_EMPTY 2
 
-void checkArg(char *arg[]);
-// void showStringLen()
-// {
-    
-// }
 #endif

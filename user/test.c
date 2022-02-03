@@ -10,11 +10,12 @@
 
 
 
+void travelCurrentFiles(const char* current_dir_name,const int fd);
 void showString(char* str);
 void showCurrentFiles(int level,const char* current_dir_name,const int fd);
 void showStringLen(char* str);
 void showStrPtr(char* str);
-
+int getFile(int fd, struct dirent* file_info);
 void addpath(char* filenamef,char* add_dir);
 
 int
@@ -27,52 +28,16 @@ main(int argc, char *argv[])//指针数组？？
     strcpy(filename,"./");
 
     int fd = open(filename,O_RDONLY);
-    showStringLen(filename);
+    // showStringLen(filename);
     // showCurrentFiles(1,filename,fd);
+    travelCurrentFiles(filename,fd);
 
-
-    //test addpath
-    char* test = "hahahaha";
-    addpath(filename,test);
-
+    // //test addpath
+    // char* test = "hahahaha";
+    // addpath(filename,test);
 
     exit(0);
 }
-
-
-// void travelChildPath(char* parent_file_name)
-// {
-//     char* _filename = parent_file_name;
-//     int fd = open(_filename,O_RDONLY);
-//     //in current dir
-
-//     struct dirent de;
-//     while(read(fd,&de,sizeof(de)) == sizeof(de))
-//     {
-//         // static int cnt = 0;
-//         // cnt++;
-//         //
-//         struct stat fstat;
-//         //get stat
-//         // int is_dir = 0;
-//         stat(de.name,&fstat);
-
-
-//         if(de.inum == 0){
-//             continue;
-//         }
-//         //
-//         printf("@%d",level);
-//         for(int i = 0; i < level; i++){
-//             printf(" ");
-//         }
-
-//         printf(" stat:%d  ",fstat.type);
-//         printf("%s    ",de.name); //??符号的优先级 
-//         printf("inum:%d\n",de.inum);
-//         // printf("sizeof:%d",sizeof(de));
-//     }
-// }
 
 void addpath(char* filenamef,char* add_dir) //filename_front
 {
@@ -83,37 +48,43 @@ void addpath(char* filenamef,char* add_dir) //filename_front
     showString(filenamef);
 }
 
-void showCurrentFiles(int level,const char* current_dir_name,const int fd)
+void showFileInfo(struct dirent* file_info)
+{   
+    struct stat fstat;
+
+    stat(file_info->name,&fstat);
+    printf("%s",file_info->name); //??符号的优先级
+
+}
+
+int getFile(int fd, struct dirent* file_info)
 {
-    struct dirent de;
+    int check_read = read(fd,file_info,sizeof(file_info));
+    
+    if(check_read == sizeof(file_info)){
+        if(file_info->inum == 0){
+            return INUM_EMPTY;
+        }
+        else{
+            return file_info->inum;
+        }
+    }
+    else{
+        fprintf(2,"getFile failed\n");
+        return 0;
+    }
+}
+
+void travelCurrentFiles(const char* current_dir_name,const int fd)
+{
+    struct dirent file_info;
 
     printf("CurrentFile: %s\n",current_dir_name);
 
-    while(read(fd,&de,sizeof(de)) == sizeof(de))
+    while(getFile(fd,&file_info)) //get file info
     {
 
-        // static int cnt = 0;
-        // cnt++;
-        //
-        struct stat fstat;
-        //get stat
-        // int is_dir = 0;
-        stat(de.name,&fstat);
-
-
-        if(de.inum == 0){
-            continue;
-        }
-        //
-        printf("@%d",level);
-        for(int i = 0; i < level; i++){
-            printf(" ");
-        }
-
-        printf(" stat:%d  ",fstat.type);
-        printf("%s    ",de.name); //??符号的优先级 
-        printf("inum:%d\n",de.inum);
-        // printf("sizeof:%d",sizeof(de));
+        showFileInfo(&file_info);
     }
     printf("finish print\n");
 }
