@@ -5,22 +5,20 @@
 
 #include "kernel/fs.h"
 
-void checkArg(char *arg[])
-{
-    printf("*arg:%p\n",arg[2]);
-
-}
+#include "ad_tools.h"
 
 
+
+
+// void nextFile(const int fd, struct stat* file_stat)
+// {
+//     static 
+// }
 
 void showCurrentFiles(const char* current_dir_name,const int fd)
 {
     struct dirent de;
-    // struct stat fdstat;
-    {
-        /* data */
-    };
-    
+
     printf("CurrentFile: %s\n",current_dir_name);
 
     while(read(fd,&de,sizeof(de)) == sizeof(de))
@@ -38,7 +36,6 @@ void showCurrentFiles(const char* current_dir_name,const int fd)
         if(de.inum == 0){
             continue;
         }
-       
         //
         // printf("CNT:%d  ",cnt);
         printf(" stat:%d  ",fstat.type);
@@ -56,17 +53,27 @@ main(int argc, char *argv[])//指针数组？？
     //review the is
     // "." is the current path
 // *p++ = '/';
-
+    char filename[128];
     // char* p = "haha\n";
-    char* filename = "./";
+
+    strcpy(filename,"./");
+
     int fd = open(filename,O_RDONLY);
-    
 
     showCurrentFiles(filename,fd);
 
-    // chdir();
+    // char* filenamed = filename + strlen(filename);
 
 
+    //how to add following path
+    strcpy(filename,"b");
+
+    // move the point to the end
+
+    showString(filename);
+    // fd = chdir(filename);
+
+    // showCurrentFiles(filename,fd);
 
     exit(0);
 }

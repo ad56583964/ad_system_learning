@@ -6,7 +6,8 @@
         "stat.h": "c",
         "types.h": "c",
         "fcntl.h": "c",
-        "fs.h": "c"
+        "fs.h": "c",
+        "ad_tools.h": "c"
     },
     "makefile.launchConfigurations": [
         {
