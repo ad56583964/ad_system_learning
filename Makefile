@@ -199,7 +199,6 @@ UPROGS=\
 	$U/_primes\
 	$U/_pipe\
 	$U/_xargs\
-	$U/_ad_tools\
 
 ifeq ($(LAB),$(filter $(LAB), pgtbl lock))
 UPROGS += \

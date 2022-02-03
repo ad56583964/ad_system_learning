@@ -10,10 +10,43 @@
 
 
 
-// void nextFile(const int fd, struct stat* file_stat)
-// {
-//     static 
-// }
+void showString(char* str);
+void showCurrentFiles(const char* current_dir_name,const int fd);
+void showStringLen(char* str);
+
+int
+main(int argc, char *argv[])//指针数组？？
+{
+    // static char buf[100]; // the size is 100
+    //review the is
+    // "." is the current path
+// *p++ = '/';
+    char filename[128];
+    // char* p = "haha\n";
+
+    strcpy(filename,"./");
+
+    int fd = open(filename,O_RDONLY);
+    showStringLen(filename);
+    showCurrentFiles(filename,fd);
+
+    // char* filenamed = filename + strlen(filename);
+
+
+
+    //how to add following path
+    strcpy(filename,"b");
+
+    // move the point to the end
+
+    showString(filename);
+    showStringLen(filename);
+    // fd = chdir(filename);
+
+    // showCurrentFiles(filename,fd);
+
+    exit(0);
+}
 
 void showCurrentFiles(const char* current_dir_name,const int fd)
 {
@@ -46,34 +79,12 @@ void showCurrentFiles(const char* current_dir_name,const int fd)
     printf("finish print\n");
 }
 
-int
-main(int argc, char *argv[])//指针数组？？
+void showString(char* str)
 {
-    // static char buf[100]; // the size is 100
-    //review the is
-    // "." is the current path
-// *p++ = '/';
-    char filename[128];
-    // char* p = "haha\n";
+    printf("Str:%s\n",str);
+}
 
-    strcpy(filename,"./");
-
-    int fd = open(filename,O_RDONLY);
-
-    showCurrentFiles(filename,fd);
-
-    // char* filenamed = filename + strlen(filename);
-
-
-    //how to add following path
-    strcpy(filename,"b");
-
-    // move the point to the end
-
-    showString(filename);
-    // fd = chdir(filename);
-
-    // showCurrentFiles(filename,fd);
-
-    exit(0);
+void showStringLen(char* str)
+{
+    printf("StrLen:%d\n",strlen(str));
 }
