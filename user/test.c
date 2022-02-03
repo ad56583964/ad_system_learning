@@ -11,7 +11,7 @@
 
 
 void showString(char* str);
-void showCurrentFiles(const char* current_dir_name,const int fd);
+void showCurrentFiles(int level,const char* current_dir_name,const int fd);
 void showStringLen(char* str);
 void showStrPtr(char* str);
 
@@ -20,10 +20,7 @@ void addpath(char* filenamef,char* add_dir);
 int
 main(int argc, char *argv[])//指针数组？？
 {
-    // static char buf[100]; // the size is 100
-    //review the is
-    // "." is the current path
-// *p++ = '/';
+
     char filename[128];
     // char* p = "haha\n";
 
@@ -31,7 +28,8 @@ main(int argc, char *argv[])//指针数组？？
 
     int fd = open(filename,O_RDONLY);
     showStringLen(filename);
-    showCurrentFiles(filename,fd);
+    // showCurrentFiles(1,filename,fd);
+
 
     //test addpath
     char* test = "hahahaha";
@@ -40,6 +38,41 @@ main(int argc, char *argv[])//指针数组？？
 
     exit(0);
 }
+
+
+// void travelChildPath(char* parent_file_name)
+// {
+//     char* _filename = parent_file_name;
+//     int fd = open(_filename,O_RDONLY);
+//     //in current dir
+
+//     struct dirent de;
+//     while(read(fd,&de,sizeof(de)) == sizeof(de))
+//     {
+//         // static int cnt = 0;
+//         // cnt++;
+//         //
+//         struct stat fstat;
+//         //get stat
+//         // int is_dir = 0;
+//         stat(de.name,&fstat);
+
+
+//         if(de.inum == 0){
+//             continue;
+//         }
+//         //
+//         printf("@%d",level);
+//         for(int i = 0; i < level; i++){
+//             printf(" ");
+//         }
+
+//         printf(" stat:%d  ",fstat.type);
+//         printf("%s    ",de.name); //??符号的优先级 
+//         printf("inum:%d\n",de.inum);
+//         // printf("sizeof:%d",sizeof(de));
+//     }
+// }
 
 void addpath(char* filenamef,char* add_dir) //filename_front
 {
@@ -50,7 +83,7 @@ void addpath(char* filenamef,char* add_dir) //filename_front
     showString(filenamef);
 }
 
-void showCurrentFiles(const char* current_dir_name,const int fd)
+void showCurrentFiles(int level,const char* current_dir_name,const int fd)
 {
     struct dirent de;
 
@@ -72,7 +105,11 @@ void showCurrentFiles(const char* current_dir_name,const int fd)
             continue;
         }
         //
-        // printf("CNT:%d  ",cnt);
+        printf("@%d",level);
+        for(int i = 0; i < level; i++){
+            printf(" ");
+        }
+
         printf(" stat:%d  ",fstat.type);
         printf("%s    ",de.name); //??符号的优先级 
         printf("inum:%d\n",de.inum);
