@@ -13,6 +13,9 @@
 void showString(char* str);
 void showCurrentFiles(const char* current_dir_name,const int fd);
 void showStringLen(char* str);
+void showStrPtr(char* str);
+
+void addpath(char* filenamef,char* add_dir);
 
 int
 main(int argc, char *argv[])//指针数组？？
@@ -30,22 +33,21 @@ main(int argc, char *argv[])//指针数组？？
     showStringLen(filename);
     showCurrentFiles(filename,fd);
 
-    // char* filenamed = filename + strlen(filename);
+    //test addpath
+    char* test = "hahahaha";
+    addpath(filename,test);
 
-
-
-    //how to add following path
-    strcpy(filename,"b");
-
-    // move the point to the end
-
-    showString(filename);
-    showStringLen(filename);
-    // fd = chdir(filename);
-
-    // showCurrentFiles(filename,fd);
 
     exit(0);
+}
+
+void addpath(char* filenamef,char* add_dir) //filename_front
+{
+    char* filenamed = filenamef + strlen(filenamef);
+    showStrPtr(filenamef);
+    showStrPtr(filenamed);
+    strcpy(filenamed,add_dir);
+    showString(filenamef);
 }
 
 void showCurrentFiles(const char* current_dir_name,const int fd)
@@ -87,4 +89,9 @@ void showString(char* str)
 void showStringLen(char* str)
 {
     printf("StrLen:%d\n",strlen(str));
+}
+
+void showStrPtr(char* str)
+{
+    printf("StrPtr:%p\n",str);
 }
