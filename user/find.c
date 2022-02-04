@@ -31,10 +31,10 @@ main(int argc, char *argv[]){//指针数组？？
     // char find_str[] = "aaahabaaahabhabhbbb";
     // printf("find:%d\n",findStr(last_str,find_str));
     // strcpy(filename,".");
-    close(2);
+    // close(2);
     if(argc < 2)
     {
-        printf("You should input a dir and a speical name\n");
+        // printf("You should input a dir and a speical name\n");
         exit(0);
     }
 
@@ -74,8 +74,8 @@ void getFileInfo(const struct dirent* pcurrent_dirent,struct stat* pfstat){
     //this logic must touch the first invalid
     stat(pcurrent_dirent->name,pfstat);
     //output
-    printf("Name:%s \n",(*pcurrent_dirent).name); //??符号的优先级
-    fprintf(PRINT_ERROR,"type:%d \n",(*pfstat).type);    //
+    // fprintf(PRINT_ERROR,"Name:%s \n",(*pcurrent_dirent).name); //??符号的优先级
+    // fprintf(PRINT_ERROR,"type:%d \n",(*pfstat).type);    //
 }
 
 int findCurrentFiles(char* dir_name, char* fit_str){
@@ -90,7 +90,7 @@ int findCurrentFiles(char* dir_name, char* fit_str){
 
     int top_fd = open(temp_dir_name,O_RDONLY);
 
-    fprintf(2,"CurrentFile: %s\n",temp_dir_name);
+    // fprintf(2,"CurrentFile: %s\n",temp_dir_name);
     // printf("CurrentFile: %s\n",temp_dir_name);
 
     while(readFile(top_fd,&current_dirent)){ //get file info      
@@ -115,8 +115,8 @@ int findCurrentFiles(char* dir_name, char* fit_str){
 
         if(isDir(&current_dirent,&fstat)){
             //change file string
-            fprintf(PRINT_ERROR,"find a dir\n");
-            fprintf(PRINT_ERROR,"%c\n",current_dirent.name[0]);
+            // fprintf(PRINT_ERROR,"find a dir\n");
+            // fprintf(PRINT_ERROR,"%c\n",current_dirent.name[0]);
 
             // "xx" + "/xx"
             addpath(temp_dir_name,current_dirent.name);
@@ -125,9 +125,9 @@ int findCurrentFiles(char* dir_name, char* fit_str){
             cnt += findCurrentFiles(temp_dir_name,fit_str);
         }
     }
-    fprintf(PRINT_ERROR,"finish print\n");
-    fprintf(PRINT_ERROR,"CNT:%d",cnt);
-    close(top_fd);
+    // fprintf(PRINT_ERROR,"finish print\n");
+    // fprintf(PRINT_ERROR,"CNT:%d",cnt);
+    // close(top_fd);
     return cnt;
 }
 
@@ -186,17 +186,17 @@ int isDir(struct dirent* current_dirent,struct stat* pfstat){
 void showString(char* str)
 {
 
-    fprintf(PRINT_ERROR,"Str:%s\n",str);
+    // fprintf(PRINT_ERROR,"Str:%s\n",str);
 }
 
 void showStringLen(char* str)
 {
-    fprintf(PRINT_ERROR,"StrLen:%d\n",strlen(str));
+    // fprintf(PRINT_ERROR,"StrLen:%d\n",strlen(str));
 }
 
 void showStrPtr(char* str)
 {
-    fprintf(PRINT_ERROR,"StrPtr:%p\n",str);
+    // fprintf(PRINT_ERROR,"StrPtr:%p\n",str);
 }
 
 int findStr(char* last_str,char* find_str){
