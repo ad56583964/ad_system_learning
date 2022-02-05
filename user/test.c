@@ -86,6 +86,7 @@ int findCurrentFiles(char* dir_name, char* fit_str){
     char temp_dir_name[128]; // use this dir_name in this function
     char file_path[128];
     memcpy(temp_dir_name,dir_name,strlen(dir_name)+1);
+    addpath(temp_dir_name,dir_name);
     //decouple the current_dir_name
 
     int top_fd = open(temp_dir_name,O_RDONLY);
@@ -117,12 +118,12 @@ int findCurrentFiles(char* dir_name, char* fit_str){
             //change file string
             fprintf(PRINT_ERROR,"find a dir\n");
             fprintf(PRINT_ERROR,"%c\n",current_dirent.name[0]);
-
+            chdir(current_dirent.name);
             // "xx" + "/xx"
-            addpath(temp_dir_name,current_dirent.name);
 
             // into the child dir
-            cnt += findCurrentFiles(temp_dir_name,fit_str);
+            cnt += findCurrentFiles(dir_name,fit_str);
+            chdir("..");
         }
     }
     fprintf(PRINT_ERROR,"finish print\n");
