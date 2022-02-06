@@ -3,7 +3,7 @@
 #include "user/user.h"
 
 /*
-echo aaaa | xargs
+echo aaaa | xargs haha
 */
 
 // Write a simple version of the UNIX xargs program: 
@@ -15,6 +15,8 @@ void showString(char* str)
 {
     printf("Str:%s\n",str);
 }
+
+void addStringFront(char* str_base,const char* add_str);
 
 int main(int argc, char const *argv[])
 {
@@ -37,7 +39,12 @@ int main(int argc, char const *argv[])
     strcpy(app_command,argv[1]);
     showString(app_command);
 
-    combineString();
+    addStringFront(app_command,left_command);
+    // showString(app_command);
 
     exit(0);
+}
+
+void addStringFront(char* str_base,const char* add_str){
+    strcpy(str_base+strlen(str_base),add_str);
 }
