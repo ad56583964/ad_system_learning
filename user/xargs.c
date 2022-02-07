@@ -11,7 +11,7 @@ echo aaaa | xargs haha
 //     supplying the line as arguments to the command. Your solution should be in the file user/xargs.c.
 #define FROM_LEFT 0
 
-void showString(char* str)
+void showString(const char* str)
 {
     printf("Str:%s\n",str);
 }
@@ -36,11 +36,18 @@ int main(int argc, char const *argv[])
     showString(left_command);
     printf("=========end=========\n");  
 
-    strcpy(app_command,argv[1]);
+    strcpy(app_command,argv[2]);
     showString(app_command);
 
     addStringFront(app_command,left_command);
     // showString(app_command);
+    if(fork() == 0){
+        char * child_argv[16]; //??
+        strcpy(child_argv[0],argv[1]);
+        strcpy(child_argv[1],argv[2]);
+        exec(child_argv[0],child_argv);
+    }
+    wait(0);
 
     exit(0);
 }
