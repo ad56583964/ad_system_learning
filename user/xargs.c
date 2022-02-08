@@ -11,6 +11,11 @@ echo aaaa | xargs haha
 //     supplying the line as arguments to the command. Your solution should be in the file user/xargs.c.
 #define FROM_LEFT 0
 
+struct xarg_param{
+    int x_type;
+    char* param;
+};
+
 void showString(const char* str)
 {
     printf("Str:%s\n",str);
@@ -18,40 +23,50 @@ void showString(const char* str)
 
 void addStringFront(char* str_base,const char* add_str);
 
-int main(int argc, char const *argv[])
-{
-    //test pipe
+void readLeftPipe(char* stage){
+    int str_point = 0;
     char ch;
-    char app_command[128];
-    char left_command[128];
+    while(read(FROM_LEFT,&ch,1) == 1){
+        stage[str_point++] = ch;
+    }
+    stage[str_point] = 0;//add EOF
+}
+
+void xargs
+
+// grep sth in <file>
+int main(int argc, char const *argv[]){
+    //test pipe
+    // char app_command[128];
+    char left_message[256];
     // char right_command[128];
     printf("=========start=========\n");
 
-    int str_point = 0;
-    while(read(FROM_LEFT,&ch,1) == 1)
+    readLeftPipe(left_message);
+    showString(left_message);
+
+    //find_newline
+
+    if(isNewLine(left_message,current_line))
     {
-        left_command[str_point++] = ch;
+
     }
-    left_command[str_point] = 0;
-    showString(left_command);
+
+    parse_command();
+
+
     printf("=========end=========\n");  
 
-    strcpy(app_command,argv[2]);
-    showString(app_command);
-
-    addStringFront(app_command,left_command);
-    // showString(app_command);
-    if(fork() == 0){
-        char * child_argv[16]; //??
-        strcpy(child_argv[0],argv[1]);
-        strcpy(child_argv[1],argv[2]);
-        exec(child_argv[0],child_argv);
-    }
     wait(0);
-
     exit(0);
+
 }
 
 void addStringFront(char* str_base,const char* add_str){
     strcpy(str_base+strlen(str_base),add_str);
+}
+
+//how to process the mutiple line
+void xgrep(){
+    
 }

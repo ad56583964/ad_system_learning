@@ -27,7 +27,7 @@ int
 main(int argc, char *argv[]){//指针数组？？
 
     char str_stage[128] = {0};
-    printf("%d",strlen(str_stage));
+    // printf("%d",strlen(str_stage));
     
 
     if(argc < 2)
@@ -63,7 +63,7 @@ void addpath(char* filenamef,char* add_dir){ //filename_front
     strcpy(filenamed,add_dir);
 
     //show added filename
-    showString(filenamef);
+    // showString(filenamef);
 }
 
 
@@ -72,25 +72,25 @@ void getFileInfo(const struct dirent* pcurrent_dirent,struct stat* pfstat){
     //this logic must touch the first invalid
     stat(pcurrent_dirent->name,pfstat);
     //output
-    printf("    @Name:%s \n",(*pcurrent_dirent).name); //??符号的优先级
-    fprintf(PRINT_ERROR,"    @type:%d \n",(*pfstat).type);    //
+    // printf("    @Name:%s \n",(*pcurrent_dirent).name); //??符号的优先级
+    // fprintf(PRINT_ERROR,"    @type:%d \n",(*pfstat).type);    //
 }
 
 int findCurrentFiles(const char* dir_name,const char* fit_str, char* str_stage){
     struct dirent current_dirent;
     struct stat fstat;
 
-    showString(str_stage);
+    // showString(str_stage);
 
     strcpy(str_stage+strlen(str_stage),dir_name);
 
     int top_fd = open(str_stage,O_RDONLY);
-    printf("                fd:%d\n",top_fd); 
+    // printf("                fd:%d\n",top_fd); 
     // xx
 
-    showString(str_stage);
+    // showString(str_stage);
 
-    fprintf(2,"CurrentFile: %s\n",dir_name);
+    // fprintf(2,"CurrentFile: %s\n",dir_name);
 
     while(readFile(top_fd,&current_dirent)){ //get file info      
         if(current_dirent.inum == 0){
@@ -107,8 +107,8 @@ int findCurrentFiles(const char* dir_name,const char* fit_str, char* str_stage){
         
         if(isDir(&current_dirent,&fstat)){
             //change file string
-            fprintf(PRINT_ERROR,"find a dir\n");
-            fprintf(PRINT_ERROR,"       #Dir:%s\n",current_dirent.name);
+            // fprintf(PRINT_ERROR,"find a dir\n");
+            // fprintf(PRINT_ERROR,"       #Dir:%s\n",current_dirent.name);
 
             //enter child dir 
 
@@ -116,13 +116,13 @@ int findCurrentFiles(const char* dir_name,const char* fit_str, char* str_stage){
             // "xx" + "/"
             // while(1);
             findCurrentFiles(current_dirent.name,fit_str,str_stage);
-            printf("Back to the parentfile\n");
+            // printf("Back to the parentfile\n");
 
         }
     }
     //back dir str
     *(str_stage+strlen(str_stage) - strlen(dir_name) - 1) = 0;
-    showString(str_stage);
+    // showString(str_stage);
     // while(1);
     return 0;
 }

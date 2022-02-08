@@ -13,7 +13,7 @@
 
 #define MAXARGS 10
 
-struct cmd {
+struct cmd {//at first they have no param
   int type;
 };
 
@@ -272,9 +272,9 @@ gettoken(char **ps, char *es, char **q, char **eq)
   int ret;
 
   s = *ps;
-  while(s < es && strchr(whitespace, *s))
-    s++;
-  if(q)
+  while(s < es && strchr(whitespace, *s))//jump
+    s++;//jump action
+  if(q) //
     *q = s;
   ret = *s;
   switch(*s){
@@ -284,31 +284,31 @@ gettoken(char **ps, char *es, char **q, char **eq)
   case '(':
   case ')':
   case ';':
-  case '&':
-  case '<':
+  case '&'://not care??
+  case '<'://??
     s++;
     break;
   case '>':
     s++;
     if(*s == '>'){
-      ret = '+';
+      ret = '+';//
       s++;
     }
-    break;
+    break;//
   default:
-    ret = 'a';
-    while(s < es && !strchr(whitespace, *s) && !strchr(symbols, *s))
+    ret = 'a'; //??
+    while(s < es && !strchr(whitespace, *s) && !strchr(symbols, *s)) 
       s++;
-    break;
-  }
+    break;//
+  }//
   if(eq)
     *eq = s;
 
-  while(s < es && strchr(whitespace, *s)) //strchr 寻找第一次出现的位置
+  while(s < es && strchr(whitespace, *s)) //jump again
     s++;
   *ps = s;
-  return ret; //what is ret?? 
-}
+  return ret; //what is ret??  
+}// l need to focus on what is between the ps -> es finally
 
 int// what is peek??
 peek(char **ps, char *es, char *toks)
@@ -355,7 +355,7 @@ parseline(char **ps, char *es) //line??
 
   cmd = parsepipe(ps, es);
   while(peek(ps, es, "&")){
-    gettoken(ps, es, 0, 0);
+    gettoken(ps, es, 0, 0); //??
     cmd = backcmd(cmd);
   }
   if(peek(ps, es, ";")){
@@ -385,7 +385,7 @@ parseredirs(struct cmd *cmd, char **ps, char *es)
   char *q, *eq;
 
   while(peek(ps, es, "<>")){
-    tok = gettoken(ps, es, 0, 0);
+    tok = gettoken(ps, es, 0, 0); //read token put in tok
     if(gettoken(ps, es, &q, &eq) != 'a')
       panic("missing file for redirection");
     switch(tok){
@@ -395,7 +395,7 @@ parseredirs(struct cmd *cmd, char **ps, char *es)
     case '>': //it will delete all the thing in the right file
       cmd = redircmd(cmd, q, eq, O_WRONLY|O_CREATE|O_TRUNC, 1);
       break;
-    case '+':  // ??
+    case '+': // ??
       cmd = redircmd(cmd, q, eq, O_WRONLY|O_CREATE, 1);
       break;
     }
