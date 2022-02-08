@@ -34,20 +34,63 @@ void showArgvs(char* argv[]){
     }
 }
 
+char whitespace[] = " \t\r\n\v";//??
+char symbols[] = "<|>&;()";//??
+
 int
-main(int argc, const char *argv[]){//指针数组？？
+gettoken(char **ps, char *es, char **q, char **eq)
+{
+  char *s;
+  int ret;
 
-    // char*
-    char* child_argv[16];
-    char exec_name[16];
-    pushParams(argv[0],child_argv,argv);
-    showArgvs(child_argv);
+  s = *ps;
+  while(s < es && strchr(whitespace, *s))//jump
+    s++;//jump action
+  if(q) //
+    *q = s;
+  ret = *s;
+  switch(*s){
+  case 0:
+    break;
+  case '|':
+  case '(':
+  case ')':
+  case ';':
+  case '&'://not care??
+  case '<'://??
+    s++;
+    break;
+  case '>':
+    s++;
+    if(*s == '>'){
+      ret = '+';//
+      s++;
+    }
+    break;//
+  default:
+    ret = 'a'; //??
+    while(s < es && !strchr(whitespace, *s) && !strchr(symbols, *s)) 
+      s++;
+    break;//
+  }//
+  if(eq)
+    *eq = s;
 
+  while(s < es && strchr(whitespace, *s)) //jump again
+    s++;
+  *ps = s;
+  return ret; //what is ret??  
+}// l need to focus on what is between the ps -> es finally
 
-    strcpy(exec_name,argv[0]);
-    exec(exec_name,child_argv);
+int
+main(int argc,  char *const argv[]){//指针数组？？
 
+    char* s = {"haha h"};
+
+    gettoken(&s,s+strlen(s),0,0);
     // exec();
+    showString(s);
+    
 
     exit(0);
 }

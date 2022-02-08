@@ -23,43 +23,64 @@ void showString(const char* str)
 
 void addStringFront(char* str_base,const char* add_str);
 
-void readLeftPipe(char* stage){
+char** readLeftPipe(char* stage){
     int str_point = 0;
     char ch;
     while(read(FROM_LEFT,&ch,1) == 1){
+        if
         stage[str_point++] = ch;
     }
-    stage[str_point] = 0;//add EOF
+    // stage[str_point-1] = 0;//add EOF 替换换行符
 }
 
-void xargs
-
-// grep sth in <file>
-int main(int argc, char const *argv[]){
-    //test pipe
-    // char app_command[128];
-    char left_message[256];
-    // char right_command[128];
-    printf("=========start=========\n");
-
-    readLeftPipe(left_message);
-    showString(left_message);
-
-    //find_newline
-
-    if(isNewLine(left_message,current_line))
-    {
-
+void parseXargsParam(int* xargc,char* xargv[],int* argc,char* argv[]){// 如何传递数组指针？？
+    //move the argv first
+    
+    //xarg[0] is exec name 
+    for(int i = 0; i < (*argc); i++){
+        if(xargv[i] == 0){
+            xargv[i] = (char *)malloc(64); //NEED DELETE
+        }
+        xargv[i] = argv[i+1];
     }
 
-    parse_command();
+    // xargv[(*argc-1)] = (char *)malloc(64);
+    // xargv[(*argc-1)] = from_pipe;
+
+    xargv[(*argc-1)] = (char *)malloc(64);
+    xargv[(*argc-1)] = 0;
+
+    *xargc = *argc-1;
+}
+
+/*
+
+echo pipe|xargs echo wewe
+
+*/
+
+// grep sth in <file>
+int main(int argc, char* argv[]){
+    //test pipe
+    // char app_command[128];
+
+    int xargc = 0;
+    char* xargs[128];
+    parseXargsParam(&xargc,xargs,&argc,argv);
+
+    char left_message[256];
+    char** left_args = readLeftPipe(left_message);
 
 
-    printf("=========end=========\n");  
+    exec(xargs[0],xargs);
+ 
+    
+
+    // parse_command();
 
     wait(0);
     exit(0);
-
+    
 }
 
 void addStringFront(char* str_base,const char* add_str){
